@@ -205,6 +205,29 @@ int main() {
         priority_queue[i] = ready_queue[i];
     }
 
+
+     // Execute tasks until all are completed
+    while (ready_queue_size > 0 || waiting_queue_size > 0) {
+        // Check if there are tasks in the ready queue
+        if (ready_queue_size > 0) {
+            Task current_task = ready_queue[0];  // Get the task at the front of the ready queue
+            printf("Executing Task: %c\n", current_task.task_type);
+
+            // Update task states and handle resource allocation
+            update_task_states();
+
+            // Sort the ready queue based on the chosen scheduling algorithm
+            sort_ready_queue(scheduling_algorithm);
+        }
+        else {
+            printf("No tasks in the ready queue.\n");
+        }
+
+        // Wait for user input to continue to the next round
+        printf("Press enter to continue to the next round...");
+        fflush(stdin);
+        getchar();
+    }
     
     return 0;
 }
