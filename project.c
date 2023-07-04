@@ -156,5 +156,55 @@ void sort_ready_queue(char scheduling_algorithm) {
 }
 
 int main() {
+    int initial_R1, initial_R2, initial_R3;
+    char scheduling_algorithm;
+    int num_tasks;
+
+    printf("Enter the initial number of resources R1: ");
+    scanf("%d", &initial_R1);
+    printf("Enter the initial number of resources R2: ");
+    scanf("%d", &initial_R2);
+    printf("Enter the initial number of resources R3: ");
+    scanf("%d", &initial_R3);
+    
+    scanf("%c", &scheduling_algorithm); //read a \n
+    
+    printf("Enter the scheduling algorithm (S for SJF, F for FCFS, R for RR): ");
+    scanf("%c", &scheduling_algorithm);
+    
+    
+    printf("Enter the number of tasks to be scheduled: ");
+    scanf("%d", &num_tasks);
+    
+    // Initialize the system resources
+    resources_R1 = initial_R1;
+    resources_R2 = initial_R2;
+    resources_R3 = initial_R3;
+
+    int i;
+    for (i = 0; i < num_tasks; i++) {
+        Task new_task;
+        printf("Enter task name: ");
+        scanf("%s", new_task.task_name);
+        printf("new_task.task_name : %s \n", new_task.task_name);
+        printf("Enter task type (X, Y, or Z): ");
+        fflush(stdin);
+        scanf(" %c", &new_task.task_type);
+        printf("Enter task execution time: ");
+        scanf("%d", &new_task.execution_time);
+        strcpy(new_task.state, "READY");
+        new_task.time_on_processor = 0;
+        priority_queue[priority_queue_size++] = new_task;
+    }
+    
+    printf("ready_queue_size : %d", ready_queue_size );
+    
+    sort_ready_queue(scheduling_algorithm);
+    
+    for (int i = 0; i <= ready_queue_size-1; i++) {
+        priority_queue[i] = ready_queue[i];
+    }
+
+    
     return 0;
 }
